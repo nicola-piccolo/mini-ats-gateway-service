@@ -1,1 +1,0 @@
-# mini-ats-gateway-service

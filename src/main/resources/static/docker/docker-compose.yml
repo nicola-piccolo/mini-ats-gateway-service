@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  gateway-service:
+    image: miniats/gateway-service:latest
+    ports: 
+      - 8080:8080
+    volumes:
+      - /tmp:/home/gateway-service/logs
+    env_file:
+      - ./.discovery-env
+    networks: 
+      - global-network
+networks:
+  global-network:
+    external:
+      name: mini-ats-network

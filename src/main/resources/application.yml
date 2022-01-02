@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    name: /home/gateway-service/logs/GatewayService.log
+  level:
+    root: INFO
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: ${DISCOVERY_SERVICE_URL}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      default-filters:
+      - StripPrefix=1
+      routes:
+      - id: companyService
+        uri: lb://COMPANY
+        predicates:
+        - Path=/company-service/**
+      - id: candidateService
+        uri: lb://CANDIDATE
+        predicates:
+        - Path=/candidate-service/**
+      - id: jobopeningService
+        uri: lb://JOBOPENING
+        predicates:
+        - Path=/jobopening-service/**
